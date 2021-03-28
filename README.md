@@ -1,66 +1,9 @@
 # IQ Option API
 
-## Versão customizada por IQ Coding ([YouTube](https://www.youtube.com/channel/UC51qSJBV60nneZXVNgM-bKQ))
-## Este Readme ainda está sendo traduzido!
----
-## Atualizações e versões
-
-### Ultima atualização: 2020/02/18
-- Adicionado função check_win_v3() 
-- Adicionado função check_win_v4()
-> Somente para opções!
-
-### Ultima atualização: 2019/11/22
-#### Vesão 5.1
-- Adicionado [get_option_open_by_other_pc()](#getoptionopenbyotherpc)
-
-#### Vesão 5.0
-- Adicionado [get_digital_spot_profit_after_sale()](#getdigitalspotprofitaftersale)
-
-#### Vesão 4.5
-- Adicionado [get_remaning()](#getremaning)
-
-#### Vesão 4.4
-- check_win_digital(Mensagem síncrona) e check_win_digital_v2(Mensagem assíncrona) concertados
-> Agora são implementados de maneira diferente
-- Adicionado get_digital_position()
-
-#### Vesão 4.3
-- Adicionado subscribe_top_assets_updated & popularity
-
-#### Vesão 4.2
-- Adicionado reconnect() sample
-- Adicionado get_async_order)
-
-#### Vesão 4.0.1
-- fix get_positions()
-- Adicionado get_optioninfo_v2()
-
---
-
-## Soluções de problemas/erros
-
-#### Minha conta tem verificação em duas etapas, como proceder?
-Infelizmente a API não consegue trabalhar com contas que possuem verificação em duas etapas, será necessário você 
-desativar a verificação em duas etapas para poder utilizar a APO
-
-#### Erros com WebSocket ou ao logar
-Caso ocorra erros com websocket, o mesmo deve ser desinstalado e reinstalado(0.56)!
-```bash
-pip uninstall websocket-client
-pip install websocket-client==0.56
-```
-
-#### Conflito entre WebSocket e WebSocket-Cliente
-Este erro pode vir a acontecer caso você esteja usando Anaconda, por exemplo
-```bash
-pip uninstall websocket
-pip install websocket-client==0.56.0
-```
-
 ---
 
 ## Sobre a API
+
 Desenvolvida em Python 3.7, você pode estar utilizando em "alto nivel" ou "baixo nivel", esta API pode trabalhar com Optções & Digital & Forex & Ações & Commodities & Crypto & ETFs;
 
 ```Python
@@ -84,11 +27,14 @@ from iqoptionapi.api import IQOptionAPI
 ---
 
 ## Instalação e Atualização
+
 Para Python 3
+
 ```bash
 pip3 install -U git+git://github.com/Lu-Yi-Hsun/iqoptionapi.git
 ```
 Para Python 2
+
 ```bash
 pip2 install -U git+git://github.com/Lu-Yi-Hsun/iqoptionapi.git
 ```
@@ -98,21 +44,51 @@ pip2 install -U git+git://github.com/Lu-Yi-Hsun/iqoptionapi.git
 ## Funções e exemplos
 
 ### Importar o projeto para seu código
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 ```
 
 ---
 
-### Debug 
+## Soluções de problemas/erros
+
+### Minha conta tem verificação em duas etapas, como proceder?
+
+Infelizmente a API não consegue trabalhar com contas que possuem verificação em duas etapas, será necessário você 
+desativar a verificação em duas etapas para poder utilizar a APO
+
+### Erros com WebSocket ou ao logar
+
+Caso ocorra erros com websocket, o mesmo deve ser desinstalado e reinstalado(0.56)!
+
+```bash
+pip uninstall websocket-client
+pip install websocket-client==0.56
+```
+
+### Conflito entre WebSocket e WebSocket-Cliente
+
+Este erro pode vir a acontecer caso você esteja usando Anaconda, por exemplo
+
+```bash
+pip uninstall websocket
+pip install websocket-client==0.56.0
+```
+
+---
+
+## Debug 
 
 Ligado
+
 ```python
 import logging
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(message)s')
 ```
 
 Desligado
+
 ```python
 import logging
 logging.disable(level=(logging.DEBUG))
@@ -121,6 +97,7 @@ logging.disable(level=(logging.DEBUG))
 ---
 
 ## Como realizar login
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -128,12 +105,12 @@ API = IQ_Option("email", "senha")
 ```
 
 ### Limitar tentativas de reconexão com set_max_reconnect()
+
 O valor padrão é 5, para evitar que sua conta e IP sejam banidos pela IQ por exceder o limite máximo de tentativas de conexão.
+
 ```python
 API.set_max_reconnect(number)
 ```
-
-
 
 ### Reconectar e checar se está conectado
 
@@ -156,26 +133,31 @@ while True:
 ```
  
 ### Checar conexão
+
 Função retorna True ou False
+
 ```python
 print(API.check_connect())
 ```
 
 ### Conectar(ou reconectar)
+
 ```python
 API.connect()
 ```
 
 ---
 
-### Tipo de conta e banca
+## Tipo de conta e banca
 
-#### Retornar sua banca com get_balance()
+### Retornar sua banca com get_balance()
+
 ```python
 API.get_balance()
 ```
 
-#### Resetar conta de TREINAMENTO (10k)
+### Resetar conta de TREINAMENTO (10k)
+
 Função para resetar a conta de treinamento(depositar os 10k de testes)
 
 ```python
@@ -186,7 +168,8 @@ API = IQ_Option("email","password")
 print(API.reset_practice_balance())
 ```
 
-#### Alterar entre conta REAL e de TREINAMENTO
+### Alterar entre conta REAL e de TREINAMENTO
+
 ```python
 API.change_balance(TIPO)
 		#TIPO: "PRACTICE" ou "REAL"
@@ -194,7 +177,7 @@ API.change_balance(TIPO)
 
 ---
 
-### Retornar ativos e verificar se estão aberto
+## Retornar ativos e verificar se estão aberto
 
 ATENÇÃO: Tome cuidado, get_all_open_time() é pesado para a internet
 
