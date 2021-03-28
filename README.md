@@ -31,12 +31,12 @@ from iqoptionapi.api import IQOptionAPI
 Para Python 3
 
 ```bash
-pip3 install -U git+git://github.com/Lu-Yi-Hsun/iqoptionapi.git
+pip3 install -U git+git://github.com/TUDTech/IQOption_Trading_Bot
 ```
 Para Python 2
 
 ```bash
-pip2 install -U git+git://github.com/Lu-Yi-Hsun/iqoptionapi.git
+pip2 install -U git+git://github.com/TUDTech/IQOption_Trading_Bot
 ```
 
 ---
@@ -185,6 +185,7 @@ ATENÇÃO: Tome cuidado, get_all_open_time() é pesado para a internet
 - "cfd" inclue ações,Commodities e ativos de ETFs
 
 Verificar se esta aberto
+
 DICT["forex"/"cfd"/"crypto"/"digital"/"turbo"/"binary"][NOME DO ATIVO]["open"]
 > O retorno é em True ou False
 
@@ -221,7 +222,8 @@ for tipo, data in ATIVOS.items():
 ```
 ---
 
-### Ver o nome e ID de todos os ativos
+## Ver o nome e ID de todos os ativos
+
 - [Arquivo com lista de ativos e id's](iqoptionapi/constants.py)
 
 ```python
@@ -230,7 +232,8 @@ print(API.get_all_ACTIVES_OPCODE())
 
 ---
 
-### get_async_order()
+## get_async_order()
+
 Pegar informações sobre ordem/operação pelo ID
 
 ```python
@@ -263,11 +266,12 @@ print("\n\n")
 
 ---
 
-### "Humor dos Traders"
+## "Humor dos Traders"
 
 Por enquanto, só está disponivel para **binario**
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -280,7 +284,7 @@ print(API.get_traders_mood(Paridade))
 API.stop_mood_stream(Paridade)
 ```
 
-#### get_traders_mood()
+### get_traders_mood()
 
 Exibir/pegar a porcentagem de **call**, se você quiser saber a porcentagem de put, basta fazer 100-humor_call
 
@@ -290,8 +294,10 @@ API.get_traders_mood(Paridade)
 	# Se você quiser saber a porcentagem de put, tente 100-API.get_traders_mood(Paridade)
 ```
 
-#### get_all_traders_mood()
+### get_all_traders_mood()
+
 Pega tudo
+
 ```python
 API.get_all_traders_mood(Paridade)
 	# Retorno: (dict) com todos os 'humores'
@@ -299,11 +305,12 @@ API.get_all_traders_mood(Paridade)
 
 ---
 
-### Para Opções (binarias)
+## Para Opções (binarias)
 
-#### Realizar operação na binaria com buy()
+### Realizar operação na binaria com buy()
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import time
@@ -319,6 +326,7 @@ id = API.buy(Entrada, Paridade, direcao, Duracao)
 ```
 
 Explicação
+
 ```python
 API.buy(Entrada, Paridade, direcao, duracao)
                 # Entrada: Quanto em reais/dolares você quer usar na entrada (Minimo 1 dolar ou 2 reais), a informação tem que ser do tipo int ou float
@@ -330,9 +338,10 @@ API.buy(Entrada, Paridade, direcao, duracao)
 
 ---
 
-#### Operações simultaneas com buy_multi()
+## Operações simultaneas com buy_multi()
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 API = IQ_Option("email", "password")
@@ -361,7 +370,7 @@ print(API.check_win_v3(ids[0]))
 
 ---
 
-#### Tempo restante para operação com get_remaning()
+## Tempo restante para operação com get_remaning()
 
 Formula: tempo de compra = tempo restante - 30
 
@@ -382,13 +391,16 @@ while True:
         break
 ```
 
-#### Vender operação com sell_option()
+### Vender operação com sell_option()
+
 O ID('s) passados para o sell_option() devem ser int ou um list contendo os id's
+
 ```python
 API.sell_option(sell_ids)
 ```
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import time
@@ -412,14 +424,15 @@ sell_all.append(id2)
 print(API.sell_option(sell_all))
 ```
 
-#### Verificar resultado da operação nas **BINÁRIA**
+### Verificar resultado da operação nas **BINÁRIA**
 
 > As funções check_win() e check_win_v2() pararam de funcionar
 
 Para pegarmos o resultado de uma operação feito na binarias, podemos estar utilizando o check_win_v3() ou o check_win_v4()
 
 
-###### check_win_v3()
+#### check_win_v3()
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import time
@@ -442,7 +455,8 @@ print(API.check_win_v3(id))
 		# Resultado retornado no padrão 'True/False',lucro
 ```
 
-###### check_win_v4()
+#### check_win_v4()
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import time
@@ -464,16 +478,16 @@ print(API.check_win_v4(id))
 		# Resultado retornado no padrão 'True/False',lucro
 ```
 
-
 ---
 
-### Dados brutos da **BINÁRIA**
+## Dados brutos da **BINÁRIA**
 
-#### get_all_init()
+### get_all_init()
 
 "get_binary_option_detail()" e "get_all_profit()" são baseados no "get_all_init()", para retornar os dados "brutos", você pode utilizar:
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -484,9 +498,10 @@ print(API.get_all_init())
 
 ![](image/expiration_time.png)
 
-#### get_binary_option_detail()
+### get_binary_option_detail()
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -498,9 +513,10 @@ print(d["CADCHF"]["turbo"])
 print(d["CADCHF"]["binary"])
 ```
 
-#### get_all_profit()
+### get_all_profit()
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -510,13 +526,15 @@ d = API.get_all_profit()
 print(d["CADCHF"]["turbo"])
 print(d["CADCHF"]["binary"])
 ```
----
-#### Pegar histórico de trading das **BINÁRIAS**
 
+---
+
+## Pegar histórico de trading das **BINÁRIAS**
 
 Temos dois modos para fazer isto, para ambos precisamos indicar quantos 'trades' você quer retornar do histórico de trading ( apenas das binárias )
 
-###### get_optioninfo()
+### get_optioninfo()
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -525,7 +543,7 @@ API = IQ_Option("email", "password")
 print(API.get_optioninfo(10))
 ```
 
-###### get_optioninfo_v2()
+### get_optioninfo_v2()
 
 ```python
 from iqoptionapi.stable_api import IQ_Option
@@ -536,8 +554,8 @@ print(API.get_optioninfo_v2(10))
 
 ```
 
+### Pegar opções feitas por outro dispositivo com get_option_open_by_other_pc()
 
-#### Pegar opções feitas por outro dispositivo com get_option_open_by_other_pc()
 Se sua conta está logada em outro celular/PC e está realizando operações, você pode "pegar" a operação do modo abaixo
 
 ```python
@@ -563,12 +581,10 @@ print(API.get_option_open_by_other_pc())
 ```
 
 ---
----
 
-### Para digitais
+## Para digitais
 
-
-#### get_all_strike_list_data()
+### get_all_strike_list_data()
 
 Formato da informação retornada
 
@@ -577,6 +593,7 @@ Formato da informação retornada
 ```
 
 Exemplo de uso
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import time
@@ -597,9 +614,10 @@ while True:
 API.unsubscribe_strike_list(Paridade, Duracao)
 ```
 
-#### Realizar operações nas Digitais com buy_digital_spot()
+### Realizar operações nas Digitais com buy_digital_spot()
 
 Abrir operação na digital com preço atual
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
  
@@ -613,18 +631,20 @@ Direcao = "call"
 print(API.buy_digital_spot(Paridade, Entrada, Direcao, Duracao))
 ```
 
-#### Realizar operações nas Digitais com buy_digital()
+### Realizar operações nas Digitais com buy_digital()
+
 Para poder utilizar esta função, você devera pegar o instument_id pelo API.get_realtime_strike_list()
 
 ```python
 buy_check,id=API.buy_digital(Entrada, instrument_id)
 ```
 
-#### Pegar lucro pós venda com get_digital_spot_profit_after_sale()
+### Pegar lucro pós venda com get_digital_spot_profit_after_sale()
 
 ![](image/profit_after_sale.png)
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option 
 
@@ -646,10 +666,12 @@ while True:
      
 ```
 
-#### Pegar payout com get_digital_current_profit()
+### Pegar payout com get_digital_current_profit()
+
 Esta função funciona somente para digitais!
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import time
@@ -667,14 +689,14 @@ while True:
 API.unsubscribe_strike_list(Paridade, Duracao)
 ```
 
-
-#### Verificar resultado da operação nas **DIGITAIS**
+### Verificar resultado da operação nas **DIGITAIS**
 
 Para pegarmos o resultado de uma operação feito nas digitais, podemos estar utilizando o check_win_digital() ou o check_win_digital_v2()
 
+#### check_win_digital()
 
-###### check_win_digital()
 Esta função foi implementada com get_digital_position()
+
 ```python
 API.check_win_digital(id) # get the id from API.buy_digital
 	# Retorno tipo tuple: status_operacao,lucro
@@ -683,8 +705,8 @@ API.check_win_digital(id) # get the id from API.buy_digital
 	# if trade not clode yet:False,None
 ```
 
+#### check_win_digital_v2()
 
-###### check_win_digital_v2()
 Função utilizada para retornar se o resultado de uma operação nas digitais
 
 ```python
@@ -696,6 +718,7 @@ API.check_win_digital_v2(id)#get the id from API.buy_digital
 ```
 
 Exemplo
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -723,17 +746,16 @@ else:
     print("Por favor, tente novamente")
 ```
 
+### Vender/fechar operação nas digitais com close_digital_option()
 
-#### Vender/fechar operação nas digitais com close_digital_option()
 ```python
 API.close_digital_option(id)
 ```
 
-
-#### Pegar informações das **DIGITAIS**
-
+### Pegar informações das **DIGITAIS**
 
 Utilizando get_digital_position()
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 
@@ -743,8 +765,6 @@ Paridade = "EURUSD-OTC"
 Duracao = 1#minute 1 or 5
 Entrada = 1
 Direcao = "call"#put
-
-
  
 id = API.buy_digital_spot(Paridade, Entrada, Direcao, Duracao) 
 
@@ -755,7 +775,9 @@ while True:
 print(API.get_digital_position(id))
 print(API.check_win_digital(id))
 ```
+
 Utilizando funções get_positions(), get_digital_position() e get_position_history()
+
 ```python
 #print(API.get_order(id)) # Não funciona com digitais
 
@@ -766,23 +788,21 @@ print(API.get_position_history("digital-option"))
 
 ---
 
-### <a id=forex>For Forex&Stock&Commodities&Crypto&ETFs</a>
+## Need to check Asset is open or close!
 
-#### you need to check Asset is open or close!
+### For Forex&Stock&Commodities&Crypto&ETFs
 
 try this api [get_all_open_time](#checkopen)
 ![](image/asset_close.png)
 
-
-
-#### <a id=instrumenttypeid>About instrument_type and instrument_id</a>
+### About instrument_type and instrument_id
 
 you can search instrument_type and instrument_id from this file
 
 [search instrument_type and instrument_id](instrument.txt)
  
+### Sample
 
-#### Sample
 ```python
 from iqoptionapi.stable_api import IQ_Option
 API=IQ_Option("email","password")
@@ -841,11 +861,8 @@ print(API.get_available_leverages("crypto","BTCUSD"))
 print(API.close_position(order_id))
 print(API.get_overnight_fee("crypto","BTCUSD"))
 ```
- 
 
-
-
-#### Buy
+### Buy
 
 return (True/False,buy_order_id/False)
 
@@ -888,12 +905,15 @@ check,order_id=API.buy_order(
             use_token_for_commission=use_token_for_commission)
 
 ```
-#### <a id=changeorder>change_order</a>
 
-##### change PENDING
+#### Change_order
+
+#### Change PENDING
+
 ![](image/change_ID_Name_order_id.png)
 
-##### change Position
+#### Change Position
+
 ![](image/change_ID_Name_position_id.png)
 
 |parameter|||||
@@ -907,8 +927,8 @@ take_profit_value|None|value(float/int)
 use_trail_stop|True|False
 auto_margin_call|True|False
 
+#### Sample
 
-##### sample
 ```python
 ID_Name="order_id"#"position_id"/"order_id"
 stop_lose_kind=None
@@ -923,12 +943,8 @@ API.change_order(ID_Name=ID_Name,order_id=order_id,
                 use_trail_stop=use_trail_stop,auto_margin_call=auto_margin_call)
 ```
 
----
+### get_order
 
-
-#### get_order
-
- 
 get infomation about buy_order_id
 
 return (True/False,get_order,None)
@@ -937,7 +953,8 @@ return (True/False,get_order,None)
 API.get_order(buy_order_id)
 ```
 
-#### get_pending
+### get_pending
+
 you will get there data
 
 ![](image/get_pending.png)
@@ -945,14 +962,14 @@ you will get there data
 ```python
 API.get_pending(instrument_type)
 ```
-#### get_positions
+
+### get_positions
 
 you will get there data
 
 ![](image/get_positions.png)
 
 return (True/False,get_positions,None)
-
 
 :exclamation: not support ""turbo-option""
 
@@ -962,7 +979,8 @@ instrument_type="crypto","forex","fx-option","multi-option","cfd","digital-optio
 API.get_positions(instrument_type)
 ```
 
-#### get_position
+### get_position
+
 you will get there data
 
 ![](image/get_position.png)
@@ -975,7 +993,7 @@ return (True/False,position data,None)
 API.get_positions(buy_order_id)
 ```
 
-#### get_position_history
+### get_position_history
 
 you will get there data
 
@@ -986,7 +1004,8 @@ return (True/False,position_history,None)
 ```python
 API.get_position_history(instrument_type)
 ```
-#### <a id=getpositionhistoryv2>get_position_history_v2</a>
+
+### get_position_history_v2
 
 instrument_type="crypto","forex","fx-option","turbo-option","multi-option","cfd","digital-option"
 
@@ -1022,7 +1041,7 @@ print(data)
 
 ```
 
-#### get_available_leverages
+### get_available_leverages
 
 get available leverages
 
@@ -1031,7 +1050,8 @@ return (True/False,available_leverages,None)
 ```python
 API.get_available_leverages(instrument_type,actives)
 ```
-#### cancel_order
+
+### cancel_order
 
 you will do this
 
@@ -1043,7 +1063,7 @@ return (True/False)
 API.cancel_order(buy_order_id)
 ```
 
-#### close_position
+### close_position
 
 you will do this
 
@@ -1055,22 +1075,23 @@ return (True/False)
 API.close_position(buy_order_id)
 ```
 
-#### get_overnight_fee
+### get_overnight_fee
 
 return (True/False,overnight_fee,None)
 
 ```python
 API.get_overnight_fee(instrument_type,active)
 ```
----
+
 ---
 
-### Candle
+## Candle
 
-#### get candles
+### Get Candles
+
 :exclamation:
 
- get_candles can not get "real time data" ,it will late about 30sec
+get_candles can not get "real time data" ,it will late about 30sec
 
 if you very care about real time you need use 
 
@@ -1095,8 +1116,11 @@ API.get_candles(ACTIVES,interval,count,endtime)
             #count:how many candles you want to get from now to past
             #endtime:get candles from past to "endtime"
 ```
+
 :exclamation:
+
 try this code to get more than 1000 candle
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import time
@@ -1110,9 +1134,10 @@ for i in range(70):
 print(ANS)
 ```
 
-#### get realtime candles
+### get realtime candles
 
-##### Sample 
+### Sample 
+
 ```python
 from iqoptionapi.stable_api import IQ_Option
 import logging
@@ -1137,7 +1162,7 @@ print("stop candle")
 API.stop_candles_stream(goal,size)
 ```
  
-##### start_candles_stream
+### start_candles_stream
  
 * input:
     * goal:"EURUSD"...
@@ -1148,28 +1173,36 @@ size
 
 ![](image/time_interval.png)
 
-##### get_realtime_candles
+### get_realtime_candles
+
 * input:
     * goal:"EURUSD"...
     * size:[1,5,10,15,30,60,120,300,600,900,1800,3600,7200,14400,28800,43200,86400,604800,2592000,"all"]
 * output:
     * dict
-##### stop_candles_stream
+ 
+### stop_candles_stream
+
 * input:
     * goal:"EURUSD"...
     * size:[1,5,10,15,30,60,120,300,600,900,1800,3600,7200,14400,28800,43200,86400,604800,2592000,"all"]
 
 ---
-### time
 
-#### <a id=timestamp> get_server_timestamp</a>
+## Time
+
+### get_server_timestamp
+
 the get_server_timestamp time is sync with iqoption
+
 ```python
 API.get_server_timestamp()
 ```
 
-#### <a id=purchase>Purchase Time</a>
+### Purchase Time
+
 this sample get the Purchase time clock
+
 ```python
 import time
 
@@ -1192,7 +1225,8 @@ while True:
     time.sleep(1)
 ```
 ---
-### Get top_assets_updated
+
+## Get top_assets_updated
 
 instrument_type="binary-option"/"digital-option"/"forex"/"cfd"/"crypto"
 
@@ -1214,9 +1248,7 @@ while True:
 API.unsubscribe_top_assets_updated(instrument_type)
 ```
 
-#### get popularity by top_assets_updated() api
-
-https://github.com/Lu-Yi-Hsun/iqoptionapi/issues/131
+### Get popularity by top_assets_updated() api
 
 ![](https://user-images.githubusercontent.com/7738916/66943816-c9ee1380-f000-11e9-996e-e06efba64101.png)
 
@@ -1262,3 +1294,15 @@ for lis in sorted_popularity:
 
 API.unsubscribe_top_assets_updated(instrument_type)
 ```
+
+## Contributing
+
+Thanks all for your contributions...
+    
+![Screen Shot 2021-03-21 at 19 11 59](https://user-images.githubusercontent.com/81108192/111917690-519f4380-8a79-11eb-9d01-de457b1655f6.png)
+    
+ETH WALLET: 0xA1134858c168568CBE37649D16723eC8F782e0A2
+
+![Screen Shot 2021-03-21 at 21 56 54](https://user-images.githubusercontent.com/81108192/111922186-5b807100-8a90-11eb-8504-a3fc3ae35052.png)
+
+BTC WALLET: 3N928MmFq51kbf6fE3fxJbtggBhcjMAhSQ
